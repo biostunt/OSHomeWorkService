@@ -6,20 +6,7 @@ public class Client implements WrapperListener {
         WrapperManager.start(new Client(),args);
     }
     public Integer start(String[] args){
-        int n = 0;
-        while(n++ < 60000 * 60){
-            try{
-                Socket socket = new Socket("localhost",1234);
-                if(socket.isConnected()){
-                    socket.close();
-                    new Service().start();
-                    n = 0;
-                }
-                Thread.sleep(1000);
-            } catch (Exception e){
-                System.out.println("Can't Connect To MasterServer. Trying again...");
-            }
-        }
+        new Service().start();
         return null;
     }
     public int stop(int i){

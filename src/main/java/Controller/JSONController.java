@@ -35,7 +35,7 @@ public class JSONController{
         JSONObject jsonObject = getJsonObjectFromFile(filepath);
         for(Object object : jsonObject.entrySet()){
             Map.Entry<String,String> entry = (Map.Entry<String, String>) object;
-            if(entry.getKey().equals(value))
+            if(entry.getKey().equals(statement))
                 newObject.put(entry.getKey(),value);
             else
                 newObject.put(entry.getKey(),entry.getValue());

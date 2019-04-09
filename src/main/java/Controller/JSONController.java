@@ -23,9 +23,15 @@ public class JSONController{
     }
     public String getJsonStatement(JSONObject jsonObject, String statement){
         for(Object object : jsonObject.entrySet()){
-            Map.Entry<String,String> entry = (Map.Entry<String, String>) object;
-            if(entry.getKey().equals(statement))
-                return entry.getValue();
+            Map.Entry<String,Long> entry = (Map.Entry<String, Long>) object;
+            if(entry.getKey().equals(statement)){
+                try{
+                    return entry.getValue() + "";
+                } catch (Exception e){
+                    System.out.println("help");
+                }
+            }
+
         }
         System.out.println("JSONObject Has no " + statement + " statement.");
         return null;

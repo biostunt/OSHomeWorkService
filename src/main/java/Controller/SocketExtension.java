@@ -50,7 +50,9 @@ public class SocketExtension {
         try{
             out.writeUTF("dir");
             dir = in.readUTF();
-        } catch (Exception e){}
+        } catch (Exception e){
+            System.out.println("cant get working directory");
+        }
         return dir;
     }
 }

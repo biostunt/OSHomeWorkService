@@ -1,20 +1,20 @@
 package Controller;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class SODKController<T> {
+    private int sleepNotifier = 500;
     public SODKController(){}
     public T getObject(String filepath,int pos){
         T object = null;
         try{
-            ObjectInputStream in =  new ObjectInputStream(
-                    new FileInputStream(filepath));
+            FileInputStream fis = new FileInputStream(filepath);
+            ObjectInputStream in =  new ObjectInputStream(fis);
             ArrayList<T> arrayList = (ArrayList<T>) in.readObject();
             object = arrayList.get(pos);
+            Thread.sleep(sleepNotifier);
+            fis.close();
             in.close();
         }catch (Exception e){
             System.out.println("Error while getting object. Path:" + filepath);
@@ -24,9 +24,13 @@ public class SODKController<T> {
     private ArrayList<T> getAllObject(String filepath){
         ArrayList<T> arrayList = new ArrayList<T>();
         try{
-            ObjectInputStream in =  new ObjectInputStream(new FileInputStream(filepath));
+            FileInputStream fis = new FileInputStream(filepath);
+            ObjectInputStream in =  new ObjectInputStream(fis);
             arrayList = (ArrayList<T>) in.readObject();
+            Thread.sleep(sleepNotifier);
+            fis.close();
             in.close();
+
         } catch (FileNotFoundException e){
             System.out.println("File didnt Found. Path:" + filepath);
         } catch (EOFException e){
@@ -39,4 +43,5 @@ public class SODKController<T> {
     public int getArraySize(String filepath){
         return getAllObject(filepath).size();
     }
+
 }
